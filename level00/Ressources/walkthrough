@@ -1,0 +1,3 @@
+Le programme nous demande de rentrer un mot de passe.
+Si le mot de passe est égal à 0x149c (5276 en décimal) alors nous accédons à un shell avec les droit de l'utilisateur level01
+Pour acceder au shell: taper "5276" le mot de passe nous est demander
