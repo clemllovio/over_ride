@@ -1,0 +1,19 @@
+mot de passe input -> local_118 -> 112
+mot de passe -> local_a8 -> 48
+username input -> local_78 -> 100
+
+On fait un memset avec des 0 de nos 3 variables.
+
+Le mot de passe du niveau est lu et stocker dans local_a8.
+On récupere la taille du mot de pass jusqu'au \n.
+Le \n est remplacer par un \0.
+
+Le programme nous prompt ensuite de rentrer un username.
+Le \n est remplacer par un \0.
+
+Le programme nous prompt maintenant de rentrer un mot de passe.
+Le \n est remplacer par un \0.
+
+Les 2 mot de passe sont comparer. Si ils sont identique un shell est ouvert.
+
+Le username est print.
