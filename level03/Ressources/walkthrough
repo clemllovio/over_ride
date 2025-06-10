@@ -1,0 +1,19 @@
+On doit rentrer un mot de passe qui va permettre d'avoir la bonne clé de decryptage pour que le "mot de passe" = "Q}|u`sfg~sf{}|a3" soit égals a "Congratulations!".
+
+Xor -> Q ^ C = 0x12 = 18
+
+En dessablant le main on obtient :
+   0x080488ca <+112>:	movl   $0x1337d00d,0x4(%esp)
+   0x080488d2 <+120>:	mov    %eax,(%esp)
+   0x080488d5 <+123>:	call   0x8048747 <test>
+Ce qui nous permet d'obtenir la valeur de param2 (les élement dont placé sur la stack de droite a gauche)
+
+Dans test :
+param1 -> password input
+param2 -> 0x1337d00d (322424845 en décimal)
+
+param2 - param1 = 0x12
+-param1 = 0x12 - param2
+-param1 = 18 - 322424845
+-param1 = -322424827
+param1 = 322424827
