@@ -1,0 +1,21 @@
+We decompile the binary level04.
+On voit alors que le binaire execute un fork creant ainsi un enfant.
+Dans la condition de l'enfant on remarque un gets dans une local avec un buffer
+de 126. La faille est ici mais est execute par l'enfant.
+pour verifier l'offset, il suffit d'utiliser gdb comme d'habitude, mais avec 
+l'option set follow-fork-mode child, cette commande permet a gdb de suivre 
+l'enfant plutot que le parent et ainsi, on peut regarder l'offset.
+On obtient 156 d'offset.
+Ensuite on remarque que le binaire a une protection, il regarde si l'enfant 
+exec, s'il le fait, il tue l'enfant et ne fait pas l'execution.
+Depuis le debut nous utilisons un shellcode avec une execution.
+Nous allons devoir changer de methode et utiliser un read2libc.
+Ce que nous allons faire est alors , utiliser l'adresse de retour de l'enfant 
+et la remplacer par l'adresse de system (en utilisant p system dans gbd), ensuite
+il nous faut chercher l'addresse de /bin/sh en utilisant dans gdb :
+- find addr_du_debut_de_la_libc, addr_de_la_fin_de_la_libc, "/bin/sh"
+
+nous obtenons :
+
+entre l'utilisation de lappel de system et /bin/sh il faut que 4 de padding
+aucune idee pourquoi la team 
