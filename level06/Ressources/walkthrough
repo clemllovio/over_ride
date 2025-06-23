@@ -1,0 +1,7 @@
+0x5eeded = 6221293
+0x539 = 1337
+
+On remarque que il y a un cryptage calculer du login rentrer
+Le mot de passe doit correspondre au resultat du cryptage et le login doit faire plus de 6 caractere
+
+On recupere la fonction qui fait le cryptage et on la lance avec le login souhaiter tout en printant le resultat final
