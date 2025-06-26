@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void secret_backdoor() {
+    char buffer[128];
+
+    // Permet d'exécuter n'importe quelle commande tapée par l'utilisateur
+    fgets(buffer, sizeof(buffer), stdin);
+    system(buffer);
+}
+
+void set_username(char *buffer) {
+    char username[128] = {0};
+
+    puts(">: Enter your username");
+    printf(">>: ");
+    fgets(username, sizeof(username), stdin);
+
+    // Copie les 41 premiers caractères du username à partir de buffer + 140
+    for (int i = 0; i <= 40 && username[i]; i++) {
+        buffer[140 + i] = username[i];
+    }
+
+    printf(">: Welcome, %s", buffer + 140);
+}
+
+void set_msg(char *buffer) {
+    char message[1024] = {0};
+
+    puts(">: Msg @Unix-Dude");
+    printf(">>: ");
+    fgets(message, sizeof(message), stdin);
+
+    // La taille à copier est définie par l'entier situé à buffer + 180
+    int msg_len = *(int *)(buffer + 180);
+    strncpy(buffer, message, msg_len);
+}
+
+void handle_msg() {
+    char buffer[140] = {0};
+
+    // Initialise la valeur à 140 à l'emplacement buffer + 180
+    *(int *)(buffer + 180) = 140;
+
+    set_username(buffer);
+    set_msg(buffer);
+
+    puts(">: Msg sent!");
+}
+
+int main() {
+    puts("--------------------------------------------");
+    puts("|   ~Welcome to l33t-m$n ~    v1337        |");
+    puts("--------------------------------------------");
+
+    handle_msg();
+    return 0;
+}

