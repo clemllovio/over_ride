@@ -16,7 +16,6 @@ So to get "Congratulations!", we need to find the value that, when XORed with ea
 
 ## What is XOR?
 XOR is a binary operation often used in encryption. The cool trick with XOR is that it’s reversible.
-
 So, if we know the original and the encrypted value, we can get the key.
 
 ```

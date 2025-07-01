@@ -16,7 +16,7 @@ int main (int argc, char **argv)
 					return 1;
 			}
 			local_14 = local_14 + ((int)argv[1][local_18] ^ local_14) % 0x539;
-			printf("local14LOL: %d\n", local_14);
+			printf("local14: %d\n", local_14);
 	}
 	return 0;
 }

