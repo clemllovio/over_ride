@@ -49,7 +49,7 @@ int main (int argc, char **argv)
 ## Result
 If we run:
 ```
-./hash yourlogin
+./a.out yourlogin
 ```
 
 It will give you the correct password to enter for that login.

