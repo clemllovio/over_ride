@@ -28,6 +28,6 @@ shellcode + padding + address of the shellcode
 
 - Shellcode: 21 bytes
 - Padding: 80 (offset) - 21 (shellcode size) = 59 bytes
-- Address of shellcode: The address where the second fgets() is writing the input
+- Address of shellcode: The address where the second fgets() is writing the input. We, sometimes, need to add 16 bytes to the address due to an offset of ltrace.
 
 Instead of executing the puts() function, our shellcode will be executed, giving us a shell.

